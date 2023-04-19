@@ -1,5 +1,6 @@
 package part2;
 
+//static , final
 public class Ex2_12 {
         private static String staticMessage = "Static Message~ "; //static field
         private String instanceMessage; //instance field
