@@ -7,7 +7,7 @@ import java.util.UUID;
 public class TravelClub {
 
     private static final int MINIMUM_NAME_LENGTH=3;
-    private static final int MINIMUM_INTRO_LENGTH=10;
+    private static final int MINIMUM_INTRO_LENGTH=5;
 
     //Fields
     private String id; //고유 id

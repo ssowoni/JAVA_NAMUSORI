@@ -31,8 +31,10 @@ public class ClubMenu {
                     console.findAll();
                     break;
                 case 3:
+                    console.findById();
                     break;
                 case 4:
+                    console.findByName();
                     break;
                 case 5:
                     break;
