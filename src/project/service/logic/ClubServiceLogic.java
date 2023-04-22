@@ -3,7 +3,9 @@ package project.service.logic;
 import project.Entity.TravelClub;
 import project.service.ClubService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ClubServiceLogic implements ClubService {
 
@@ -66,10 +68,51 @@ public class ClubServiceLogic implements ClubService {
     @Override
     public void modify(TravelClub modifyClub) {
 
+        int foundIndex = 0;
+        for(int i=0; i<clubs.length; i++){
+            if(clubs[i].getId().equals(modifyClub.getId())){
+                foundIndex = i;
+                break;
+            }
+        }
+
+        this.clubs[foundIndex] = modifyClub;
+
     }
 
     @Override
     public void remove(String clubId) {
+
+        int findIndex = 0;
+       /* List<TravelClub> clubList = new ArrayList<>(Arrays.asList(clubs));
+        for(int i =0; i<clubList.size(); i++){
+            if(clubId.equals(clubList.get(i).getId())){
+
+                findIndex = i;
+                break;
+            }
+        }
+
+        clubList.remove(findIndex);
+        clubs = clubList.toArray(new TravelClub[0]);*/
+
+
+        for(int i=0; i< clubs.length; i++){
+            if(clubId.equals(clubs[i].getId())){
+                findIndex = i;
+                break;
+            }
+        }
+
+        for(int i = findIndex; i<=this.index; i++){
+            clubs[i] = clubs[i+1];
+        }
+
+        this.index--;
+
+
+
+
 
     }
 }

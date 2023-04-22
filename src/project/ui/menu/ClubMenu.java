@@ -37,8 +37,10 @@ public class ClubMenu {
                     console.findByName();
                     break;
                 case 5:
+                    console.modify();
                     break;
                 case 6:
+                    console.remove();
                     break;
                 case 0:
                     //switch문이 빠져나가려면 0 입력.
