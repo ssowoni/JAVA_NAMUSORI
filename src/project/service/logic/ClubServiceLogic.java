@@ -42,8 +42,10 @@ public class ClubServiceLogic implements ClubService {
             }
         }
 
-
-
+        //foundClubs의 index는 createClubs(값이 들어있는 인덱스 요소들만 출력)의 인덱스만큼이다.
+        //근데 우리는 값이 들어있는(즉 register 된) 인덱스 요소 중 우리가 찾는 name과 동일한 요소만 다시 foundClubs에 저장했다.
+        //그럼 founcClubs의 크기는 createClubs와 동일하나, name이 동일한 값들만 들어있게 된다.
+        // 11,11,null,null 이런식으로 따라서 값이 들어있는 요소만 카피해서 배열로 만들어 전달한다.
         return Arrays.copyOfRange(foundClubs, 0,subIndex);
 
 
