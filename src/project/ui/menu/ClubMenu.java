@@ -82,8 +82,6 @@ public class ClubMenu {
             System.out.println("It's a invalid number --> " + menuNumber);
             return -1;
         }
-
-
     }
 
 }
