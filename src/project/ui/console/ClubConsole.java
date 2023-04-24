@@ -6,6 +6,8 @@ import project.service.ServiceLogicLifeCycler;
 import project.service.logic.ClubServiceLogic;
 import project.util.ConsoleUtil;
 
+import java.util.List;
+
 public class ClubConsole {
 
     private ConsoleUtil consoleUtil;
@@ -29,6 +31,155 @@ public class ClubConsole {
     }
 
     public void register(){
+
+        while(true){
+            String clubName = consoleUtil.getValueOf("Club Name(0.Club Menu)");
+            if(clubName.equals("0")){
+                return;
+            }
+
+            String intro = consoleUtil.getValueOf("Club intro(0.club menu)");
+            if(intro.equals("0")){
+                return;
+            }
+
+            TravelClub newClub = new TravelClub(clubName, intro);
+
+            clubService.register(newClub);
+
+            System.out.println("Register club : " + newClub.toString());
+        }
+
+
+    }
+
+    public void findAll(){
+        System.out.println("Find All ");
+       List<TravelClub> foundClubs = clubService.findAll();
+        if(foundClubs.isEmpty()){
+            System.out.println("Empty");
+            return;
+        }
+
+        for(TravelClub club : foundClubs){
+            System.out.println(club.toString());
+        }
+
+    }
+
+    public void findById(){
+        TravelClub foundClub = null;
+
+        while(true){
+            String clubId = consoleUtil.getValueOf("Club id to find(0.Club Menu)");
+            if(clubId.equals("0")){
+                break;
+            }
+
+            foundClub = clubService.findById(clubId);
+
+            if(foundClub != null){
+                System.out.println(foundClub.toString());
+            }else{
+                System.out.println("Can not find club, ID :" + clubId);
+            }
+
+        }
+
+    }
+
+    public void findByName(){
+        List<TravelClub> foundClubs = null;
+
+        while(true) {
+            String clubName = consoleUtil.getValueOf("Club id to find(0.Club Menu)");
+            if (clubName.equals("0")) {
+                break;
+            }
+
+            foundClubs = clubService.findByName(clubName);
+
+            if(foundClubs !=null && !foundClubs.isEmpty()){
+                for(TravelClub club : foundClubs){
+                    System.out.println(club);
+                }
+            }else{
+                System.out.println("Can not find club, ID :" + clubName);
+            }
+
+        }
+
+
+    }
+
+    //
+
+    private TravelClub findOne(){
+        TravelClub foundClub = null;
+
+        while(true){
+            String clubId = consoleUtil.getValueOf("Club id to find(0.Club Menu)");
+            if(clubId.equals("0")){
+                break;
+            }
+
+            foundClub = clubService.findById(clubId);
+
+            if(foundClub != null){
+                break;
+            }else{
+                System.out.println("Can not find club, ID :" + clubId);
+            }
+
+        }
+        return foundClub;
+
+    }
+
+
+    public void modify(){
+        //id를 통해 찾아온 값
+        TravelClub targetClub = findOne();
+
+        String newName = consoleUtil.getValueOf("New Club Name(0.Club menu, Enter. No change)");
+        if(newName.equals("0")){
+            return;
+        }
+
+        if(!newName.isEmpty()){
+            targetClub.setClubName(newName);
+        }
+
+        String newIntro = consoleUtil.getValueOf("New Club newIntro(0.Club menu, Enter. No change)");
+        if(!newIntro.isEmpty()){
+            targetClub.setIntro(newIntro);
+        }
+
+        clubService.modify(targetClub);
+        System.out.println("Modify club : " + targetClub.toString());
+
+    }
+
+    public void remove(){
+
+        TravelClub targetClub = findOne();
+        String confirmStr = consoleUtil.getValueOf("Remove this club? (Y:yes, N:no)");
+        if(confirmStr.toLowerCase().equals("y")||confirmStr.toLowerCase().equals("yes")){
+            System.out.println("Removing a club --> " + targetClub.getClubName());
+            clubService.remove(targetClub.getId());
+        }else{
+            System.out.println("Remove cancelled, your club is safe. " + targetClub.getClubName());
+        }
+
+    }
+
+
+
+   /*
+
+   배열로 처리했을 때 ClubConsole
+
+   public void register(){
 
         while(true){
             String clubName = consoleUtil.getValueOf("Club Name(0.Club Menu)");
@@ -179,7 +330,7 @@ public class ClubConsole {
 
 
 
-    }
+    }*/
 
 
 

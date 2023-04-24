@@ -2,6 +2,8 @@ package project.service.logic;
 
 import project.Entity.TravelClub;
 import project.service.ClubService;
+import project.store.ClubStore;
+import project.store.StoreLifeCycler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +11,49 @@ import java.util.List;
 
 public class ClubServiceLogic implements ClubService {
 
-    private TravelClub[] clubs;
+    private ClubStore clubStore;
+
+    public ClubServiceLogic(){
+        this.clubStore = StoreLifeCycler.getUniqueInstance().requestClubStore();
+    }
+
+    @Override
+    public void register(TravelClub travelClub) {
+        this.clubStore.create(travelClub);
+    }
+
+    @Override
+    public List<TravelClub> findAll() {
+        return this.clubStore.retrieveAll();
+    }
+
+    @Override
+    public List<TravelClub> findByName(String clubName) {
+        return this.clubStore.retrieveAllByName(clubName);
+    }
+
+    @Override
+    public TravelClub findById(String clubId) {
+        return this.clubStore.retrieve(clubId);
+    }
+
+    @Override
+    public void modify(TravelClub modifyClub) {
+        this.clubStore.update(modifyClub);
+    }
+
+    @Override
+    public void remove(String clubId) {
+        this.clubStore.delete(clubId);
+    }
+
+
+
+ /*
+
+   배열을 사용했을 때 ClubServiceLogic 코드
+
+   private TravelClub[] clubs;
     private int index;
 
     public ClubServiceLogic() {
@@ -86,7 +130,7 @@ public class ClubServiceLogic implements ClubService {
     public void remove(String clubId) {
 
         int findIndex = 0;
-       /* List<TravelClub> clubList = new ArrayList<>(Arrays.asList(clubs));
+       *//* List<TravelClub> clubList = new ArrayList<>(Arrays.asList(clubs));
         for(int i =0; i<clubList.size(); i++){
             if(clubId.equals(clubList.get(i).getId())){
 
@@ -96,7 +140,7 @@ public class ClubServiceLogic implements ClubService {
         }
 
         clubList.remove(findIndex);
-        clubs = clubList.toArray(new TravelClub[0]);*/
+        clubs = clubList.toArray(new TravelClub[0]);*//*
 
 
         for(int i=0; i< clubs.length; i++){
@@ -116,5 +160,6 @@ public class ClubServiceLogic implements ClubService {
 
 
 
-    }
+    }*/
+
 }
