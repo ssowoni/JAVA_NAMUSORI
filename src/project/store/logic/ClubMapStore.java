@@ -4,6 +4,7 @@ import project.Entity.TravelClub;
 import project.store.ClubStore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ClubMapStore implements ClubStore {
 
@@ -27,12 +28,18 @@ public class ClubMapStore implements ClubStore {
     @Override
     public List<TravelClub> retrieveAllByName(String clubName) {
 
+
+       return clubMap.values().stream().filter(club->getClass().equals(clubName))
+               .collect(Collectors.toList());
+
+
+        /*
         List<TravelClub> foundClubs = new ArrayList<>();
         for(TravelClub club : this.clubMap.values()){
             if(club.getClubName().equals(clubName)){
                 foundClubs.add(club);
             }
-        }
+        }*/
 
         /*
         위와 같은 방식
@@ -44,7 +51,6 @@ public class ClubMapStore implements ClubStore {
             }
         }*/
 
-        return foundClubs;
     }
 
     @Override
